@@ -1,0 +1,3 @@
+<?php
+multi-line
+?>
