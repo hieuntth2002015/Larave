@@ -1,14 +1,15 @@
 <?php
 
+
 namespace App\Http\Controllers;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
 
-class HomeController extends Basecontroller
+class ProfileController
 {
-    public function showWelcome(){
-        return view ('index');
+    public function showProfile($name){
+        return view('profile')->with('name',$name);
     }
 }
