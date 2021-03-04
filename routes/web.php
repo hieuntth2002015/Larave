@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
-
+use App\Models\Post;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -68,3 +68,48 @@ Route::get('delete', function () {
     $deleted = DB::delete('delete from posts where id = ?',[3]);
     return $deleted;
 });
+
+Route::get('readAll', function () {
+    $posts = Post::all();
+    foreach ($posts as $p){
+        echo $p->title ." ". $p->body;
+        echo "<br>";
+    }
+});
+
+Route::get('findId', function (){
+    $posts = Post::where('id', '>=', 1)
+        ->where('title','PHP with Laravel')
+        ->where('body','like','%laravel%')
+        ->orderBy('id', 'desc')
+        ->take(10)
+        ->get();
+        foreach ($posts as $p) {
+            echo $p->title;
+            echo "<br>";
+        }
+});
+
+Route::get('insertORM', function (){
+    $p = new Post;
+    $p->title = 'insert ORM';
+    $p->body = 'INSERTED done done ORM';
+
+    $p->save();
+});
+
+Route::get('updateORM', function (){
+    $p = Post::where('id',2)->first();
+    $p->title = 'updated ORM';
+    $p->body = 'updated Ahihi DONE DONE';
+    $p->save();
+});
+
+Route::get('deleteORM', function () {
+    Post::where('id', '>=', 14)
+        ->delete();
+});
+
+Route::get('destroyORM', function () {
+    Post::destroy(7,11);
+})
